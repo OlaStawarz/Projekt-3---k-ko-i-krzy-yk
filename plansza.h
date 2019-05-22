@@ -96,6 +96,7 @@ public:
 	}
 	void wyswietl()
 	{
+		system("cls");
 		for (int i = 0; i < rozmiar; i++, cout << endl)
 		{
 			cout << "|";
@@ -128,16 +129,35 @@ public:
 	}
 	void wybierz_gracza()
 	{
-		cout << "Wybierz X lub O: ";
-		cin >> gracz;
-		if (gracz == 'X' || gracz == 'O')
-			cout << "Wybrales gracza " << gracz << endl;
-		else
-			cout << "Niepoprawnie wpisany znak";
+		do
+		{
+			cout << "Wybierz X lub O: ";
+			cin >> gracz;
+			if (gracz == 'X' || gracz == 'O')
+			{
+				cout << "Wybrales gracza " << gracz << endl;
+				break;
+			}
+			else
+				cout << "Niepoprawnie wpisany znak, sprobuj jeszcze raz" << endl;
+		} while (gracz != 'X' || gracz!='O');
+		
+
 		cout << "Podaj ilosc potrzebna do wygranej" << endl;
 		do {
 			cin >> ilosc_w_rzedzie;
 		} while (ilosc_w_rzedzie > rozmiar || ilosc_w_rzedzie < 2);
+	}
+
+	bool czy_zajete(int wiersz, int kolumna)
+	{
+		if (macierz[wiersz][kolumna] == 'X' || macierz[wiersz][kolumna] == 'O')
+		{
+			cout << "To pole jest zajete. Wybierz inne pole" << endl;
+			return false;
+		}
+		else
+			return true;
 	}
 
 	void wybierz_pole()
@@ -146,17 +166,18 @@ public:
 		cout << "Wprowadz wartosc z przedzialu 1 do " << rozmiar << endl;
 		do {
 			do {
-				cout << "Podaj wspolrzedna x: " << endl;
+				cout << "Podaj wspolrzedna wiersza: " << endl;
 				cin >> wiersz;
 				wiersz--;
 			} while (wiersz < 0 || wiersz >= rozmiar);
 			do {
-				cout << "Podaj wspolrzedna kolumna: " << endl;
+				cout << "Podaj wspolrzedna kolumny: " << endl;
 				cin >> kolumna;
 				kolumna--;
 			} while (kolumna < 0 || kolumna >= rozmiar);
+			czy_zajete(wiersz, kolumna);
 		} while (macierz[wiersz][kolumna] != ' ');
-
+		
 		macierz[wiersz][kolumna] = gracz;
 
 	}
