@@ -8,6 +8,7 @@ int main()
 	int rozmiar;
 	gra kolkokrzyzyk;
 	int wybor;
+	char **macierz;
 	
 	cout << "Podaj rozmiar planszy: ";
 	cin >> rozmiar;
@@ -22,23 +23,53 @@ int main()
 	{
 	case 1:
 	{
-		do {
+		for (int i = 0; i < rozmiar*rozmiar / 2; i++)
+		{
 			kolkokrzyzyk.wybierz_pole();
+			kolkokrzyzyk.wyswietl();
+			if (kolkokrzyzyk.sprawdz_wygrana())
+			{
+				if (kolkokrzyzyk.sprawdz_wygrana() == 10)
+					cout << "Koniec gry. Wygrywa X!" << endl;
+				break;
+			}
 			kolkokrzyzyk.graczSI();
 			kolkokrzyzyk.wyswietl();
 			if (kolkokrzyzyk.sprawdz_wygrana())
 			{
-				cout << "Koniec gry" << endl;
+				if (kolkokrzyzyk.sprawdz_wygrana() == -10)
+					cout << "Koniec gry. Wygrywa O!" << endl;
 				break;
 			}
-		} while (rozmiar*rozmiar / 2); //iloœæ ruchów
+			/*if (kolkokrzyzyk.sprawdz_remis())
+			{
+				cout << "Remis" << endl;
+				break;
+			}*/
+		}
 		break;
 	}
 	case 2:
 	{
-		//algorytm minmax
+		kolkokrzyzyk.wybierz_pole();
+		kolkokrzyzyk.wyswietl();
+		if (kolkokrzyzyk.sprawdz_wygrana())
+		{
+			if (kolkokrzyzyk.sprawdz_wygrana() == 10)
+				cout << "Koniec gry. Wygrywa X!" << endl;
+			break;
+		}
+		//kolkokrzyzyk.znajdz_najlepszy_ruch(macierz);
+		kolkokrzyzyk.wyswietl();
+		if (kolkokrzyzyk.sprawdz_wygrana())
+		{
+			if (kolkokrzyzyk.sprawdz_wygrana() == -10)
+				cout << "Koniec gry. Wygrywa O!" << endl;
+			break;
+		}
 	}
+	break;
 	}
-	
 	system("pause");
+	return 0;
 }

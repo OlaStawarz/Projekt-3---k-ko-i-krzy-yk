@@ -1,13 +1,18 @@
 #ifndef MINMAX_H
 #define MINMAX_H
 #include<iostream>
+#include "plansza.h"
 
 using namespace std;
 
-int minmax(int rozmiar, char gracz)
+class SI
 {
-	
-}
+	int rozmiar;
+public:
+
+
+};
+
 
 
 #endif MINMAX_H
