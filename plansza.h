@@ -20,10 +20,6 @@ class gra
 	char** macierz;
 	int rozmiar;
 	int ilosc_w_rzedzie;
-	//vector<int> wiersze;
-	//vector<int> kolumny;
-
-
 public:
 
 	void graczSI()
@@ -37,6 +33,7 @@ public:
 		if (gracz == 'X') macierz[kolumna][wiersz] = 'O';
 		else macierz[kolumna][wiersz] = 'X';
 	}
+
 	int sprawdz_wygrana()
 	{
 
@@ -90,6 +87,7 @@ public:
 		else
 			return false;
 	}
+
 	int sprawdz_w_dol(int wiersz, int kolumna)
 	{
 		int licznikX = 0, licznikO = 0;
@@ -148,7 +146,7 @@ public:
 	}
 	void wyswietl()
 	{
-		//system("cls");
+		system("cls");
 		for (int i = 0; i < rozmiar; i++, cout << endl)
 		{
 			cout << "|";
@@ -178,18 +176,9 @@ public:
 		}
 		//wyswietl();
 	}
-	void wybierz_gracza()
+	void okresl_ilosc()
 	{
-		do {
-			cout << "Wybierz gracza X lub O " << endl;
-			cin >> gracz;
-			if (gracz == 'X' || gracz == 'O')
-				break;
-			else
-				cout << "Wpisano zly znak, prosze sprobowac jeszcze raz" << endl;
-		} while (gracz != 'X' || gracz != 'O');
-
-		cout << "Podaj ilosc pol potrzebna do wygranej" << endl;
+		cout << "Podaj ilosc pol potrzebna do wygranej: ";
 		do {
 			cin >> ilosc_w_rzedzie;
 		} while (ilosc_w_rzedzie > rozmiar || ilosc_w_rzedzie < 2);
@@ -203,162 +192,36 @@ public:
 		}
 		return true;
 	}
+
+	bool kto_zaczyna(char wybor)
+	{
+		if (wybor == 'T' || wybor == 't')
+			return true;
+		else if (wybor == 'N' || wybor == 'n')
+			return false;
+	}
 	void wybierz_pole()
 	{
 		int wiersz, kolumna;
 		cout << "Wprowadz wartosc z przedzialu 1 do " << rozmiar << endl;
 		do {
 			do {
-				cout << "Podaj wspolrzedna wiersza: " << endl;
+				cout << "Podaj wspolrzedna wiersza: ";
 				cin >> wiersz;
 				wiersz--;
 			} while (wiersz < 0 || wiersz >= rozmiar);
 			do {
-				cout << "Podaj wspolrzedna kolumny: " << endl;
+				cout << "Podaj wspolrzedna kolumny: ";
 				cin >> kolumna;
 				kolumna--;
 			} while (kolumna < 0 || kolumna >= rozmiar);
-			//czy_zajete(wiersz, kolumna);
+			czy_zajete(wiersz, kolumna);
 		} while (macierz[wiersz][kolumna] != ' ');
 
-		macierz[wiersz][kolumna] = gracz;
+		macierz[wiersz][kolumna] = 'X';
 
 	}
-	/*void co_wybrales()
-	{
-		char huPlayer, aiPlayer;
-		if (gracz == 'X')
-		{
-			huPlayer = 'X';
-			aiPlayer = 'O';
-		}
-		else
-		{
-			huPlayer = 'X';
-			aiPlayer = 'O';
-		}
-	}*/
-	//int czy_puste() //Tworzy 2 vectory indeksow wolnych pol
-	//{
-	//	int wolnych_pol = 0;
-	//	for (int i = 0; i < rozmiar; i++)
-	//	{
-	//		for (int j = 0; j < rozmiar; j++)
-	//		{
-	//			if (macierz[i][j] == ' ')
-	//			{
-	//				wolnych_pol++;
-	//				wiersze.push_back(i);
-	//				kolumny.push_back(j);
-	//			}
-	//		}
-
-	//	}
-	//	//cout << "Wolnych pol: " << wolnych_pol << endl;
-	//	return wolnych_pol;
-	//}
-	//void wypisz_puste() // wypisuje wartosci indeksow wolnych pol z vectorow
-	//{
-	//	wiersze.clear();
-	//	kolumny.clear();
-	//	czy_puste();
-	//	for (int i = 0; i < wiersze.size(); i++)
-	//	{
-	//		cout << "A teraz: " << wiersze[i] << "Kolumny: " << kolumny[i] << endl;
-	//	}
-	//}
-	/*int findBestMove(char **macierz)
-	{
-		int bestMove = NULL;
-	}*/
-	//	float zwroc_wieksza(float wartosc1, float wartosc2)
-//	{
-//		if (wartosc1 > wartosc2)
-//			return wartosc1;
-//		return wartosc2;
-//	}
-//	float zwroc_mniejsza(float wartosc1, float wartosc2)
-//	{
-//		if (wartosc1 < wartosc2)
-//			return wartosc1;
-//		return wartosc2;
-//	}
-//	int minimax(int depth, bool isMax)
-//	{
-//		int score = sprawdz_wygrana(); //10 dla gracza, -10 dla komputera, 0 nikt nie wygrywa
-//		if (score == 10)
-//			return score;
-//		if (score == -10)
-//			return score;
-//		if (czy_puste() == 0)
-//			return 0;
-//
-//		if (isMax)
-//		{
-//			int best = -1000;
-//
-//			for (int i = 0; i < rozmiar; i++)
-//			{
-//				for (int j = 0; j < rozmiar; j++)
-//				{
-//					if (macierz[i][j] == ' ')
-//					{
-//						macierz[i][j] = 'X';
-//						best = zwroc_wieksza(best, minimax(depth + 1, !isMax));
-//						macierz[i][j] = ' ';
-//					}
-//				}
-//			}
-//			return best;
-//		}
-//		else
-//		{
-//			int best = 1000;
-//			for (int i = 0; i < rozmiar; i++)
-//			{
-//				for (int j = 0; j < rozmiar; j++)
-//				{
-//					if (macierz[i][j] == ' ')
-//					{
-//						macierz[i][j] = 'O';
-//						best = zwroc_mniejsza(best, minimax(depth + 1, !isMax));
-//						macierz[i][j] = ' ';
-//					}
-//				}
-//			}
-//			return best;
-//		}
-//
-//
-//	}
-//	Move finddBestMove(char **macierz)
-//	{
-//		Move bestMove;
-//		bestMove.row = -1;
-//		bestMove.col = -1;
-//		int bestValue = -1000;
-//		int bestRow, bestCol;
-//		for (int i = 0; i < rozmiar; i++)
-//		{
-//			for (int j = 0; j < rozmiar; j++)
-//			{
-//				macierz[i][j] = 'X';
-//				int moveVal = minimax(0, false);
-//				macierz[i][j] = ' ';
-//				if (moveVal > bestValue)
-//				{
-//					bestMove.row = i;
-//					bestMove.col = j;
-//					bestValue = moveVal;
-//				}
-//			}
-//		}
-//		cout << "The value of the best move is: " << bestValue << endl;
-//		cout << "best row: " << bestMove.row << " best column " << bestMove.col << endl;
-//		macierz[bestMove.row][bestMove.col] = 'O';
-//		return bestMove;
-//	}
-
+	
 	Move minimax()
 	{
 		int score = numeric_limits<int>::max();
