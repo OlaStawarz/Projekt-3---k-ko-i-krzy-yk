@@ -1,13 +1,10 @@
 #ifndef PLANSZA_H
 #define PLANSZA_H
 #include <iostream>
-#include <vector>
 #include <limits>
-#include <iomanip>
 #include <algorithm>
-//#include<bits/stdc++.h>
-using namespace std;
 
+using namespace std;
 
 class gra
 {
@@ -221,6 +218,8 @@ public:
 		macierz[wiersz][kolumna] = 'X';
 
 	}
+
+	//algorytm minimax
 	
 	Move minimax()
 	{
@@ -257,7 +256,7 @@ public:
 			return score;
 		if (sprawdz_remis())
 			return 0;
-		if (glebokosc > 5)
+		if (glebokosc > (8-rozmiar))
 			return -1;
 		for (int i = 0; i < rozmiar; i++)
 		{
@@ -281,7 +280,7 @@ public:
 			return score;
 		if (sprawdz_remis())
 			return 0;
-		if (glebokosc > 5)
+		if (glebokosc > (8-rozmiar))
 			return -1;
 		for (int i = 0; i < rozmiar; i++)
 		{

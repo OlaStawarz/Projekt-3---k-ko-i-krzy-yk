@@ -1,7 +1,7 @@
 #include <iostream>
-#include "plansza.h"
 #include <cmath>
-#include "minmax.h"
+#include "plansza.h"
+
 
 using namespace std;
 
